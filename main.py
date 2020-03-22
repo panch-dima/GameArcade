@@ -1,4 +1,5 @@
 import arcade
+import random
 from Units import Player
 import random
 
@@ -72,10 +73,20 @@ class MyGame(arcade.Window):
     def update(self, delta_time):
         self.physics_engine.update()
         """ Здесь вся игровая логика и логика перемещения."""
-        eat_hit_list = arcade.check_for_collision_with_list(self.player_sprite,self.eat_list)
+        eat_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.eat_list)
 
         for eat in eat_hit_list:
-            eat.kill()
+
+            if self.player_sprite.center_x > eat.center_x and self.player_sprite.center_y > eat.center_y:
+                eat.change_x = -10
+                eat.change_y = -10
+            if self.player_sprite.center_x < eat.center_x and self.player_sprite.center_y < eat.center_y:
+                eat.change_x = 10
+                eat.change_y = 10
+
+            eat.update()
+            #eat.change_y = random.randrange(-2.0, 2.0)
+
         pass
 
 
