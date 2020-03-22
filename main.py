@@ -1,20 +1,11 @@
 import arcade
+from Units import Player
 import random
 
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
 SPRITE_SCALING = 2
 MOVEMENT_SPEED = 1
-
-
-
-class Player(arcade.Sprite):
-    def __init__(self, filename, sprite_scaling):
-        super(Player, self).__init__(filename, sprite_scaling)
-        self.leave = 100
-    def 
-
-
 
 class MyGame(arcade.Window):
     """ Главный класс приложения. """
