@@ -2,6 +2,7 @@ import arcade
 import random
 from Units import Player
 import random
+import math
 
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
@@ -25,6 +26,7 @@ class MyGame(arcade.Window):
         self.eat_list = arcade.SpriteList()
         self.walls_list = arcade.SpriteList()
 
+
         self.wall_sprite = arcade.Sprite("images/wall.png", SPRITE_SCALING)
 
 
@@ -32,7 +34,9 @@ class MyGame(arcade.Window):
             self.eat_sprite = arcade.Sprite("images/eat.png", SPRITE_SCALING)
             self.eat_sprite.center_x = random.randint(0, SCREEN_HEIGHT)
             self.eat_sprite.center_y = random.randint(0, SCREEN_WIDTH)
+
             self.eat_list.append(self.eat_sprite)
+
 
         self.player_sprite = Player("images/player.png", SPRITE_SCALING)
         #self.player_sprite = arcade.Sprite("images/player.png", SPRITE_SCALING)
@@ -68,15 +72,17 @@ class MyGame(arcade.Window):
         self.coin_list.draw()
         self.player_list.draw()
         self.eat_list.draw()
+        #self.circle = arcade.draw_circle_outline(self.player_sprite.center_x, self.player_sprite.center_y, 18, arcade.color.RED, 3)
         # Здесь код рисунка
 
     def update(self, delta_time):
         self.physics_engine.update()
+        self.player_list.update()
+        self.player_sprite.draw()
         """ Здесь вся игровая логика и логика перемещения."""
         eat_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.eat_list)
 
         for eat in eat_hit_list:
-
             if self.player_sprite.center_x > eat.center_x and self.player_sprite.center_y > eat.center_y:
                 eat.change_x = -10
                 eat.change_y = -10
